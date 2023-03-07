@@ -30,7 +30,7 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [Air Pollution] <a name="about-project"></a>
+# 📖 [school-library] <a name="about-project"></a>
 
 **[school-library]** The objective of this project is to develop an application for a school library. The app will facilitate the addition of new students or teachers, the inclusion of new books, and the maintenance of records of who borrowed a specific book and when it was borrowed. Object-Oriented Programming (OOP) was exclusively utilized for this project.
 
