@@ -21,9 +21,3 @@ class Person < Nameable
     @age >= 18
   end
 end
-
-
-person = Person.new(18, 'Hassan', parent_permission: true)
-
-puts person.can_use_services?
-puts person.correct_name
