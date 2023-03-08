@@ -1,4 +1,6 @@
-class Person
+require_relative './nameable'
+
+class Person < Nameable
   attr_accessor :name, :age
   attr_reader :id
 
@@ -19,3 +21,9 @@ class Person
     @age >= 18
   end
 end
+
+
+person = Person.new(18, 'Hassan', parent_permission: true)
+
+puts person.can_use_services?
+puts person.correct_name
