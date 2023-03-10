@@ -12,26 +12,22 @@ class App
     @rentals = []
   end
 
+  # Code to list all books
   def list_books
-    # Code to list all books
-    def list_books
-      if @books.empty?
-        puts 'There are no books yet'
-      else
-        @books.each { |book| puts "Title: #{book.title}, Author: #{book.author}" }
-      end
+    if @books.empty?
+      puts 'There are no books yet'
+    else
+      @books.each { |book| puts "Title: #{book.title}, Author: #{book.author}" }
     end
   end
 
+  # Code to list all people
   def list_people
-    # Code to list all people
-    def list_people
-      if @people.empty?
-        puts 'There is no person'
-      else
-        @people.each { |person|
-          puts "Name: #{person.name} ID: #{person.id} Age: #{person.age} Class: [#{person.class}] "
-        }
+    if @people.empty?
+      puts 'There is no person'
+    else
+      @people.each do |person|
+        puts "Name: #{person.name} ID: #{person.id} Age: #{person.age} Class: [#{person.class}] "
       end
     end
   end
