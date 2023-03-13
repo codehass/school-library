@@ -1,11 +1,8 @@
 require_relative './app'
 
+# Ask the user for the choice
 class Main
-  puts "Welcome to school library app!\n\n"
-  def self.menu
-    puts
-    puts 'Please choose an option by entering a number'
-
+  def menu
     @list = {
       '1' => 'List all books',
       '2' => 'List all people',
@@ -19,36 +16,35 @@ class Main
     @list.each do |index, string|
       puts "#{index} - #{string}"
     end
-    gets.chomp
-  end
-
-  response = App.new
-
-  loop do
-    case menu
-    when '1'
-      response.list_books
-    when '2'
-      response.list_people
-    when '3'
-      response.create_person
-    when '4'
-      response.create_book
-    when '5'
-      response.create_rental
-    when '6'
-      response.list_rentals
-    when '7'
-      puts 'Thank you for using this app!'
-      exit
-    else
-      puts 'Please choose a number between 1 and 7'
-    end
+    gets.chomp.to_i
   end
 end
 
+# handel the choices
+def choice(user_answer, response)
+  actions = {
+    1 => :list_books,
+    2 => :list_people,
+    3 => :create_person,
+    4 => :create_book,
+    5 => :create_rental,
+    6 => :list_rentals,
+    7 => :exit_app
+  }
+
+  action = actions[user_answer]
+
+  response.send(action)
+end
+
 def main
-  Main.new
+  response = App.new
+
+  loop do
+    puts 'Please choose an option by entering a number'
+    user_answer = Main.new.menu
+    choice user_answer, response
+  end
 end
 
 main

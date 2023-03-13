@@ -6,6 +6,7 @@ require_relative './book'
 require_relative './classroom'
 
 class App
+  puts "Welcome to school library app!\n\n"
   def initialize
     @books = []
     @people = []
@@ -132,5 +133,11 @@ class App
     rentals.each do |rental|
       puts "Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}"
     end
+  end
+
+  # exit function
+  def exit_app
+    puts 'Thank you for using this app!'
+    exit
   end
 end
