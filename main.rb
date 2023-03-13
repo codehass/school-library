@@ -1,13 +1,8 @@
 require_relative './app'
-require_relative './choice'
 
 # Ask the user for the choice
 class Main
-  puts "Welcome to school library app!\n\n"
   def menu
-    puts
-    puts 'Please choose an option by entering a number'
-
     @list = {
       '1' => 'List all books',
       '2' => 'List all people',
@@ -25,11 +20,32 @@ class Main
   end
 end
 
-# app controller
+# handel the choices
+def choice(user_answer, response)
+  actions = {
+    1 => :list_books,
+    2 => :list_people,
+    3 => :create_person,
+    4 => :create_book,
+    5 => :create_rental,
+    6 => :list_rentals,
+    7 => :exit_app
+  }
+
+  action = actions[user_answer]
+
+  response.send(action)
+end
+
 def main
   response = App.new
-  user_answer = Main.new.menu
-  choice user_answer, response
+
+  loop do
+    puts 'Please choose an option by entering a number'
+    user_answer = Main.new.menu
+    choice user_answer, response
+  end
 end
+
 
 main
