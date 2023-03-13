@@ -23,40 +23,36 @@ class Main
   end
 end
 
-class Director
-  def initialize(user_answer)
-    @user_answer = user_answer
-  end
+def choice(user_answer, response)
+  actions = {
+    1 => :list_books,
+    2 => :list_people,
+    3 => :create_person,
+    4 => :create_book,
+    5 => :create_rental,
+    6 => :list_rentals,
+    7 => :exit_app
+  }
 
-  response = App.new
+  action = actions[user_answer]
 
-  case @user_answer
-  when '1'
-    response.list_books
-  when '2'
-    response.list_people
-  when '3'
-    response.create_person
-  when '4'
-    response.create_book
-  when '5'
-    response.create_rental
-  when '6'
-    response.list_rentals
-  when '7'
-    puts 'Thank you for using this app!'
-    exit
-  else
+  if action.nil?
     puts 'Please choose a number between 1 and 7'
+  else
+    response.send(action)
   end
 end
 
-test = Main.new
-user_answer = test.menu
-Director.new(user_answer)
+def exit_app
+  puts 'Thank you for using this app!'
+  exit
+end
 
-# def main
-#   Main.new
-# end
+# app controller
+def main
+  response = App.new
+  user_answer = Main.new.menu
+  choice user_answer, response
+end
 
-# main
+main
