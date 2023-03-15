@@ -4,7 +4,7 @@ require_relative './student'
 require_relative './teacher'
 require_relative './book'
 require_relative './classroom'
-require_relative './loadData'
+require_relative './load_data'
 require 'json'
 
 class App
@@ -25,8 +25,8 @@ class App
       puts 'There are no books yet'
     else
       @books.each do |hash|
-        puts  "title: #{hash["title"]}   Author: #{hash["author"]} "
-    end
+        puts "title: #{hash['title']}   Author: #{hash['author']} "
+      end
     end
   end
 
@@ -36,7 +36,7 @@ class App
       puts 'There is no person'
     else
       @people.each do |hash|
-          puts  "Name: #{hash["name"]}   Age: #{hash["age"]} ID: #{hash['id'] } Class: #{hash["class"]}"
+        puts "Name: #{hash['name']}   Age: #{hash['age']} ID: #{hash['id']} Class: #{hash['class']}"
       end
     end
   end
@@ -67,15 +67,15 @@ class App
     parent_permission = gets.chomp
 
     student = Student.new(age, name, parent_permission: parent_permission)
-    studentHash = {
+    student_hash = {
       'age' => student.instance_variable_get('@age'),
       'name' => student.instance_variable_get('@name'),
       'parent_permission' => student.instance_variable_get('@parent_permission'),
       'id' => student.instance_variable_get('@id'),
       'class' => student.class
-    } 
+    }
 
-    @people << studentHash
+    @people << student_hash
     puts 'Person created successfully'
   end
 
@@ -92,15 +92,15 @@ class App
     specialization = gets.chomp
 
     teacher = Teacher.new(age, name, specialization: specialization)
-    teacherHash = {
+    teacher_hash = {
       'age' => teacher.instance_variable_get('@age'),
       'name' => teacher.instance_variable_get('@name'),
       'specialization' => teacher.instance_variable_get('@specialization'),
       'id' => teacher.instance_variable_get('@id'),
       'class' => teacher.class
     }
-      
-      @people << teacherHash     
+
+    @people << teacher_hash
     puts 'Person created successfully'
   end
 
@@ -113,12 +113,12 @@ class App
     title = gets.chomp
 
     book = Book.new(title, author)
-    bookHash = {
+    book_hash = {
       'title' => book.instance_variable_get('@title'),
-      'author' => book.instance_variable_get('@author'),
-     }
-    puts bookHash
-    @books << bookHash
+      'author' => book.instance_variable_get('@author')
+    }
+
+    @books << book_hash
 
     puts 'Book created successfully'
   end
@@ -132,41 +132,42 @@ class App
     else
       puts 'Select a book from the following list by number'
       @books.each_with_index do |book, index|
-        puts "#{index + 1}) Title: #{book["title"]}, Author: #{book["author"]}"
+        puts "#{index + 1}) Title: #{book['title']}, Author: #{book['author']}"
       end
 
-      book_index = gets.chomp.to_i
-      book_name = @books[book_index - 1]['title']
+      book_name = @books[gets.chomp.to_i - 1]['title']
 
       puts 'Select a person from the following list by number (not id)'
       @people.each_with_index do |person, index|
-        puts "#{index + 1}) [#{person["class"]}] Name: #{person["name"]}, ID: #{person["id"]}, Age: #{person["age"]}"
+        puts "#{index + 1}) [#{person['class']}] Name: #{person['name']}, ID: #{person['id']}, Age: #{person['age']}"
       end
 
-      person_index = gets.chomp.to_i
-      person_id = @people[person_index - 1]['id']
-    
+      person_id = @people[gets.chomp.to_i - 1]['id']
+
       print 'Date: '
       date = gets.chomp
       puts
+      rental_hash(book_name, person_id, date)
 
-      rental = {
-        'book' => book_name,
-        'persons' => person_id,
-        'date' => date
-      }
-
-      @rentals << rental
-
-      puts 'Rental created successfully'
     end
+  end
+
+  def rental_hash(book_name, person_id, date)
+    rental = {
+      'book' => book_name,
+      'persons' => person_id,
+      'date' => date
+    }
+
+    @rentals << rental
+    puts 'Rental created successfully'
   end
 
   # list all rentals for a given person id
   def list_rentals
-    puts 
+    puts
     print 'ID of person: '
-    
+
     selected_id = gets.chomp.to_i
 
     puts 'Rentals: '
@@ -182,12 +183,10 @@ class App
 
   # exit function
   def exit_app
-    File.open('people.json', 'w') { |f| f.write JSON.generate(@people)}
-    File.open('books.json', 'w') { |f| f.write JSON.generate(@books)}
-    File.open('rentals.json', 'w') { |f| f.write JSON.generate(@rentals)}
+    File.write('./data/people.json', JSON.generate(@people))
+    File.write('./data/books.json', JSON.generate(@books))
+    File.write('./data/rentals.json', JSON.generate(@rentals))
     puts 'Thank you for using this app!'
     exit
   end
-
-    
 end
