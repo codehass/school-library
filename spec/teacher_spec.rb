@@ -9,7 +9,8 @@ describe Teacher do
 
     it 'Check  of the can_use_services? method ' do
       teacher = Teacher.new(50, 'Jack', specialization: 'math')
-      expect(teacher.can_use_services?).to eq(true)
+      use_services = teacher.can_use_services?
+      expect(use_services).to eq(true)
     end
   end
 end

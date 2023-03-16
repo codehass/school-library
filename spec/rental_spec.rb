@@ -1,6 +1,6 @@
 require_relative '../book'
-require_relative '../student'
 require_relative '../person'
+require_relative '../student'
 
 describe Rental do
   describe '#Rental' do
