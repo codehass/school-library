@@ -1,7 +1,6 @@
 require_relative '../book'
 require_relative '../student'
 require_relative '../person'
-
 describe Rental do
   describe '#Rental' do
     it 'Creates an instance of Rental' do
